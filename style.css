@@ -2,4 +2,69 @@
 {
 	border:1px solid;
 	padding: 5px;
+	display: block;
+    margin: 0 auto;
+}
+
+.head 
+{
+	margin: auto;
+	width: 500px;
+	height: 600px;
+}
+
+h1 
+{
+	text-align: center;
+}
+
+.buttonBlock
+{
+	text-align: center; 
+}
+
+.button {
+  margin:10px;
+  background: #6f767a;
+  background-image: -webkit-linear-gradient(top, #6f767a, #374852);
+  background-image: -moz-linear-gradient(top, #6f767a, #374852);
+  background-image: -ms-linear-gradient(top, #6f767a, #374852);
+  background-image: -o-linear-gradient(top, #6f767a, #374852);
+  background-image: linear-gradient(to bottom, #6f767a, #374852);
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 10px 20px 10px 20px;
+  border: solid #423d42 2px;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #b6bfc4;
+  background-image: -webkit-linear-gradient(top, #b6bfc4, #889299);
+  background-image: -moz-linear-gradient(top, #b6bfc4, #889299);
+  background-image: -ms-linear-gradient(top, #b6bfc4, #889299);
+  background-image: -o-linear-gradient(top, #b6bfc4, #889299);
+  background-image: linear-gradient(to bottom, #b6bfc4, #889299);
+  text-decoration: none;
+}
+
+#time {
+	float: right;
+}
+
+#count {
+	float: left;
+}
+
+.info {
+	border-radius: 8px;
+	border: 4px solid #6f767a; /* Параметры границы */
+    padding: 10px; /* Поля вокруг текста */
+    height: 50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

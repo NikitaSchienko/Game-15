@@ -8,32 +8,18 @@
   <script type="text/javascript" src="javascript.js"></script>
   <title>15(beta)</title>
  </head>
- <body>
-  	<canvas id='draw' class="canvas" width='400' height='400' onclick="move()">
-  		<script type='text/javascript'>
-
-			var canvas=document.getElementById("draw")
-			var x=canvas.getContext("2d");
-
-			x.fillStyle="#a0a09f";
-			x.strokeStyle="#565656";
-			x.strokeStyle = "black";
-			x.font = 'bold 70px sans-serif';
-			x.textAlign = "center";
-			
-			for(var i = 0; i < 4; i++)
-			{
-				for(var j = 0; j < 4; j++)
-				{
-					x.fillRect(i*100, j*100,100,100);
-					x.strokeRect(i*100, j*100,100,100);	
-
-					x.strokeText(array[i][j], i*100+50, j*100+75);
-				}
-			}
-
-			x.clearRect(300,300,100,100);
-			
-</script> 
+ <body background="artsfon.png">
+ 	<div class="head">
+ 		<h1>Пятнашки</h1>
+ 		<hr>
+ 		<div class="info">
+ 			<p id="count">Счет: 0</p>
+ 			<p id="time">Время: </p>
+ 		</div>
+  		<canvas id='draw' class="canvas" width='400' height='400' onclick="move()"></canvas>
+  		<div class="buttonBlock">
+  			<button class="button" onclick="drawCanvas()">Начать заново</button>
+  		</div>
+  	</div>
  </body>
 </html>

@@ -1,91 +1,151 @@
-var array = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,0]];
-draw();
+var array = [[1,5,9,13], [2,6,10,14], [3,7,11,15], [4,8,12,0]];
+var arrayReference = [[1,5,9,13], [2,6,10,14], [3,7,11,15], [4,8,12,0]];
+var page;
+var count = 0;
+var timestart;
 
-function draw()
+function random()
 {
-	var canvas=document.getElementById("draw")
-			var x=canvas.getContext("2d");
+	var arrayTest = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
 
-			x.fillStyle="#a0a09f";
-			x.strokeStyle="#565656";
-			x.strokeStyle = "black";
-			x.font = 'bold 70px sans-serif';
-			x.textAlign = "center";
-			
-			for(var i = 0; i < 4; i++)
-			{
-				for(var j = 0; j < 4; j++)
-				{
-					x.fillRect(i*100, j*100,100,100);
-					x.strokeRect(i*100, j*100,100,100);	
+	function compareRandom(a, b) 
+	{
+  		return Math.random()-0.5;
+	}
 
-					x.strokeText(array[i][j], i*100+50, j*100+75);
-				}
-			}
+	arrayTest.sort(compareRandom);
 
-			x.clearRect(300,300,100,100);
+	for(var i = 0; i < 4; i++)
+	{
+		for(var j = 0; j < 4; j++)
+		{
+			array[i][j] = arrayTest[i*4 + j];
+		}
+	}
 }
+
+function drawCanvas()
+{
+
+	canvas = document.getElementById("draw")
+	page = canvas.getContext("2d");
+	page.clearRect(0, 0, canvas.width, canvas.height);
+
+	random();
+
+	page.fillStyle="#727272";
+	page.strokeStyle = "black";
+	page.font = 'bold 70px sans-serif';
+	page.textAlign = "center";
+			
+	for(var i = 0; i < 4; i++)
+	{
+		for(var j = 0; j < 4; j++)
+		{
+			if(array[i][j] != 0)
+			{
+				page.fillRect(i*100, j*100,100,100);
+				page.fillStyle = "#a0a09f";
+				page.fillRect(i*100, j*100,95,95);
+				page.fillStyle = "#727272";
+				page.strokeRect(i*100, j*100,100,100);	
+				page.strokeText(array[i][j], i*100+50, j*100+75);
+			}
+		}
+	}
+	var date = new Date();
+	timestart = date.getTime();
+	count = 0;
+	document.getElementById('count').innerHTML = "Счет: "+count; 
+
+}
+
+$(document).ready(function() {
+	drawCanvas();		
+
+});
+
+
+function drawRect(xOld, yOld, xNew, yNew)
+{
+
+	page.clearRect(xOld*100, yOld*100,100,100);
+
+	array[xNew][yNew]=array[xOld][yOld];
+	array[xOld][yOld]=0;
+
+	page.fillRect(xNew*100, yNew*100,100,100);
+	page.fillStyle = "#a0a09f";
+	page.fillRect(xNew*100, yNew*100,95,95);
+	page.fillStyle = "#727272";
+	page.strokeRect(xNew*100, yNew*100,100,100);	
+	page.strokeText(array[xNew][yNew], xNew*100+50, yNew*100+75);
+}
+
+
+    window.onload = function(){
+    (function(){
+        var date = new Date();
+        div = document.getElementById('time');
+        div.innerHTML = 'Время: '+Math.floor((date.getTime() - timestart)/1000);
+        window.setTimeout(arguments.callee, 1);
+    })();
+};
+
+
+
+
 
 function move() 
 {
-	var x = event.pageX; 
-	var y = event.pageY;
+	var canvas = draw.getBoundingClientRect();
+	var x = event.pageX-canvas.left; 
+	var y = event.pageY-canvas.top;
 	
-	var canvas = document.getElementById("draw")
-	var page = canvas.getContext("2d");
-
+	count++;
+	document.getElementById('count').innerHTML = "Счет: "+count; 
 	
 	x = Math.floor(x / 100);
 	y = Math.floor(y / 100);
 
+
+
 	if(((x+1)<4) && (array[x+1][y]==0))
 	{
-		page.clearRect(x*100, y*100,100,100);
-
-		array[x+1][y]=array[x][y];
-		array[x][y]=0;
-		x = x+1;
-
-		page.fillRect(x*100, y*100,100,100);
-		page.strokeRect(x*100, y*100,100,100);	
-		page.strokeText(array[x][y], x*100+50, y*100+75);
+		drawRect(x,y,x+1,y);
 	}
 	else if(((1+y)<4) && (array[x][y+1]==0))
 	{
-		page.clearRect(x*100, y*100,100,100);
-
-		array[x][y+1]=array[x][y];
-		array[x][y]=0;
-		y = y+1;
-		
-		page.fillRect(x*100, y*100,100,100);
-		page.strokeRect(x*100, y*100,100,100);	
-		page.strokeText(array[x][y], x*100+50, y*100+75);
+		drawRect(x,y,x,y+1);
 	}
 	else if((x-1>=0) && array[x-1][y]==0)
 	{
-		page.clearRect(x*100, y*100,100,100);
-
-		array[x-1][y]=array[x][y];
-		array[x][y]=0;
-		x = x-1;
-		
-		page.fillRect(x*100, y*100,100,100);
-		page.strokeRect(x*100, y*100,100,100);	
-		page.strokeText(array[x][y], x*100+50, y*100+75);
+		drawRect(x,y,x-1,y);
 	}
 	else if((y-1>=0) && array[x][y-1]==0)
 	{
-		page.clearRect(x*100, y*100,100,100);
-
-		array[x][y-1]=array[x][y];
-		array[x][y]=0;
-		y = y-1;
-		
-		page.fillRect(x*100, y*100,100,100);
-		page.strokeRect(x*100, y*100,100,100);	
-		page.strokeText(array[x][y], x*100+50, y*100+75);
+		drawRect(x,y,x,y-1);
 	}
 
-	
+	if(gameOver())
+	{
+		alert("Поздравляем!");
+	}
+}
+
+function gameOver()
+{
+	var currentNumber = array[0][0];
+
+	for(var i = 0; i < array.length; i++)
+	{
+		for(var j = 0; j < array[i].length; j++)
+		{
+			if(array[i][j] != arrayReference[i][j])
+			{
+				return false;
+			}
+		}
+	}
+	return true;
 }
